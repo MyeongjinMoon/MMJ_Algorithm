@@ -15,7 +15,7 @@ int main() {
 		int value;
 		scanf("%d", &value);
 
-		unsigned long long* seq = (unsigned long long*)malloc(sizeof(unsigned long long) * value);
+		long long* seq = (long long*)malloc(sizeof(long long) * value);
 
 		for (int i = 0; i < MIN(5, value); i++) {
 			if (i > 2) {
