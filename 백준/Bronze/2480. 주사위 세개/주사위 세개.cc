@@ -1,26 +1,24 @@
 #include <stdio.h>
 
 int main(){
-    int d[6] = {0};
-    int a;
-    for(int i =0;i<3;i++){
-        scanf("%d", &a);
-        d[a-1]++;
+    int a,b,c;
+    scanf("%d %d %d", &a, &b, &c);
+
+    if(a==b && b==c){
+        printf("%d", 10000 + a*1000);
     }
-    int max=0, flag;
-    for(int i=5;i>=0;i--){
-        if(d[i] > max){
-            max=d[i];
-            flag=i + 1;
-        }
-    }
-    if(max == 3){
-        printf("%d", 10000 + flag*1000);
-    }
-    else if(max ==2){
-        printf("%d", 1000 + flag*100);
+    else if(a==b || b==c || a==c){
+        if(a==b)
+	    printf("%d", 1000 + a*100);
+	else
+	    printf("%d", 1000 + c*100);
     }
     else{
-        printf("%d", flag*100);
+        if(a>b && a>c)
+	    printf("%d", a*100);
+	else if(b>c)
+	    printf("%d", b*100);
+	else
+	    printf("%d", c*100);
     }
 }
