@@ -5,8 +5,9 @@
 #pragma warning(disable:4996)
 
 int main() {
+	int MAX = 101;
 	char CroAlpha[3][4] = { "lj", "nj", "dz=" };
-	char* a = (char*)malloc(sizeof(char) * 101);
+	char* a = (char*)malloc(sizeof(char) * MAX);
 
 	int count = 0;
 
@@ -18,26 +19,18 @@ int main() {
 		}
 		else {
 			char temp[4];
-			strncpy(temp, a + i, 2);
-			temp[2] = '\0';
-			if (!strcmp(temp, CroAlpha[0]) && i < 99) {
-				count++;
-				i++;
-				continue;
+			int flag = 1;
+			for (int j = 0; j < 3; j++) {
+				strncpy(temp, a + i, strlen(CroAlpha[j]));
+				temp[strlen(CroAlpha[j])] = '\0';
+				if (!strcmp(temp, CroAlpha[j]) && i < MAX - strlen(CroAlpha[j])) {
+					count++;
+					i += strlen(CroAlpha[j]) - 1;
+					flag = 0;
+					break;
+				}
 			}
-			else if (!strcmp(temp, CroAlpha[1]) && i < 99) {
-				count++;
-				i++;
-				continue;
-			}
-			strncpy(temp, a + i, 3);
-			temp[3] = '\0';
-			if (!strcmp(temp,CroAlpha[2]) && i < 98) {
-				count++;
-				i+=2;
-				continue;
-			}
-			else {
+			if (flag) {
 				count++;
 			}
 		}
