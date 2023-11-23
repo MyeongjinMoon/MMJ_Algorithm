@@ -1,52 +1,93 @@
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct {
-    int value;
-    int index;
-} Element;
+#pragma warning(disable:4996)
 
-// 비교 함수
-int compare(const void *a, const void *b) {
-    return ((Element *)a)->value - ((Element *)b)->value;
+/*
+qsort 함수는 정렬 대상이 되는 배열의 요소 각각의 크기를 지정해주어야 합니다. 여기서 정렬 대상은 좌표이며, 각 좌표는 x와 y 두 개의 값을 가지고 있습니다. 이를 표현하기 위해서 구조체를 사용한 것입니다.
+
+qsort 함수는 정렬할 때 배열의 요소를 서로 비교하며 위치를 바꾸는데, 이때 비교 연산을 수행하기 위해 정렬 대상인 각 요소의 크기를 알아야 합니다. 구조체를 사용하면 각 좌표가 하나의 단위로 묶여 있기 때문에, 정확한 크기를 지정할 수 있습니다.
+
+2차원 배열을 사용하면 각 행은 단순히 숫자의 배열일 뿐이며, 행 간 비교를 위한 크기 정보가 없습니다. 따라서 qsort 함수에게 어떻게 요소를 비교해야 하는지 알려줄 방법이 없습니다.
+
+요약하자면, qsort 함수에 전달되는 비교 함수가 올바르게 작동하려면 각 요소의 크기를 알아야 하며, 구조체를 사용하는 것은 좌표를 표현하기에 더 자연스럽습니다.
+*/
+/*
+typedef struct Point {
+	int x;
+	int y;
+};
+
+int compare(const void* A, const void* B) {
+	Point* p1 = (Point*)A;	// 2차원 배열을 qsort 함수로 사용하기
+	Point* p2 = (Point*)B;
+
+	if (p1->y == p2->y) {
+		return p1->x - p2->x;
+	}
+	else {
+		return p1->y - p2->y;
+	}
 }
 
 int main() {
-    int n;
-    scanf("%d", &n);
+	int n;
 
-    Element *arr = (Element *)malloc(sizeof(Element) * n);
+	scanf("%d", &n);
 
-    // 수열 입력 받기
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i].value);
-        arr[i].index = i;
-    }
+	Point* a = (Point*)malloc(sizeof(Point) * n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d %d", &a[i].x, &a[i].y);
+	}
 
-    // 수열 정렬
-    qsort(arr, n, sizeof(Element), compare);
+	qsort(a, n, sizeof(Point), compare);
 
-    int *result = (int *)malloc(sizeof(int) * n);
-    int prevValue = arr[0].value;
-    int compressedValue = 0;
+	for (int i = 0; i < n; i++) {
+		printf("%d %d\n", a[i].x, a[i].y);
+	}
+}*/
 
-    // 압축된 좌표 구하기
-    for (int i = 0; i < n; i++) {
-        if (arr[i].value != prevValue) {
-            compressedValue++;
-            prevValue = arr[i].value;
-        }
-        result[arr[i].index] = compressedValue;
-    }
+typedef struct Value {
+	int value;
+	int index;
+};
 
-    // 결과 출력
-    for (int i = 0; i < n; i++) {
-        printf("%d ", result[i]);
-    }
+int compare(const void* A, const void* B) {
+	Value* v1 = (Value*)A;
+	Value* v2 = (Value*)B;
 
-    // 동적 할당된 메모리 해제
-    free(arr);
-    free(result);
+	return v1->value - v2->value;
+}
 
-    return 0;
+int main() {
+	int n;
+
+	scanf("%d", &n);
+
+	Value* a = (Value*)calloc(sizeof(Value), n);
+
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &a[i].value);
+		a[i].index = i;
+	}
+
+	qsort(a, n, sizeof(Value), compare);
+
+	int* result = (int*)calloc(sizeof(int), n);
+	int r = 0;
+	int b = a[0].value;
+
+	for (int i = 0; i < n; i++) {
+		if (b != a[i].value) {
+			b = a[i].value;
+			r++;
+		}
+		result[a[i].index] = r;
+	}
+
+	for (int i = 0; i < n; i++) {
+		printf("%d ", result[i]);
+	}
 }
