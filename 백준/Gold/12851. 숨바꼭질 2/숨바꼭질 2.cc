@@ -2,9 +2,9 @@
 #include <queue>
 
 using namespace std;
-const int MAX = 200000;
+const int MAX = 200004;
 
-int visited[MAX+4], cnt[MAX+4];
+int visited[MAX], cnt[MAX];
 int n, m;
 
 int main() {
@@ -13,8 +13,7 @@ int main() {
 
 	cin >> n >> m;
 	if (n == m) {
-		puts("0");
-		puts("1");
+		cout << "0\n" << '1';
 		return 0;
 	}
 	visited[n] = 1;
