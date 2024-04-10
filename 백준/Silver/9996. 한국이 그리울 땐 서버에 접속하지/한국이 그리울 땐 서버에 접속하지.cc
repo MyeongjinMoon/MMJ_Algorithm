@@ -1,45 +1,40 @@
 #include <iostream>
-#include <istream>
-#include <vector>
 #include <algorithm>
-#include <string.h>
+#include <string>
 
 using namespace std;
-vector<string> split(string input, string delimiter) {
-vector<string> ret;
-long long pos = 0;
-string token = "";
-while ((pos = input.find(delimiter)) != string::npos) {
-token = input.substr(0, pos);
-ret.push_back(token);
-input.erase(0, pos + delimiter.length());
-}
-ret.push_back(input);
-return ret;
-}
 
+int a, point;
+string pa, p_f, p_b;
+string s, s_begin, s_end;
 
 int main() {
-    int n;
-    string p, d = "*";
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 
-    cin >> n;
-    cin >> p;
+    cin >> a;
+    cin >> pa;
 
-    vector<string> a = split(p,d);
+    point = pa.find("*");
 
-    for(int i =0;i<n;i++){
-        string s;
+    p_f = pa.substr(0, point);
+    p_b = pa.substr(point + 1);
+
+    for (int i = 0; i < a; i++) {
         cin >> s;
-        if(s.substr(0,a[0].size()) == a[0] && (p.size() - 1) <= s.size()){
-            if(s.substr(s.size() - a[1].size(), a[1].size()) == a[1]){
-                cout << "DA" << "\n";
-            }
-            else{
-                cout << "NE" << "\n";
-            }
+
+        if ((p_f.size() + p_b.size()) > s.size()) {
+            cout << "NE" << "\n";
+            continue;
         }
-        else{
+
+        s_begin = s.substr(0, point);
+        s_end = s.substr(s.size() - p_b.size());
+
+        if (s_begin == p_f && s_end == p_b) {
+            cout << "DA" << "\n";
+        }
+        else {
             cout << "NE" << "\n";
         }
     }
