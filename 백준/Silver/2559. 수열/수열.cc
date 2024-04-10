@@ -1,39 +1,26 @@
 #include <iostream>
-#include <istream>
-#include <vector>
-#include <algorithm>
-#include <string.h>
 
 using namespace std;
 
-int main(){
-    int n, k;
-    int result;
+int n, k, Max;
+int r;
+int a[100000];
 
-    cin >> n >> k;
+int main() {
+	cin >> n >> k;
 
-    vector<int> a;
-
-    for(int i=0;i<n;i++){
-        int b;
-        cin >> b;
-        a.push_back(b);
-    }
-
-    int sum=0;
-    int index = 0;
-
-    for(int i=0;i<k;i++){
-        sum += a[i];
-    }
-    result = sum;
-    for(int i=k;i<n;i++){
-        sum+=a[i];
-        sum-=a[index++];
-        if(sum > result){
-            result = sum;
-        }
-    }
-
-    cout << result;
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+		if (i < k) {
+			r += a[i];
+		}
+	}
+	Max = r;
+	for (int i = k; i < n; i++) {
+		r += a[i] - a[i - k];
+		if (r > Max)
+			Max = r;
+	}
+	cout << Max;
+	return 0;
 }
