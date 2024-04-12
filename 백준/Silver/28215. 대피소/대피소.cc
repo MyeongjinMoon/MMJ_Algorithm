@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int n, k, ret = 987654321;
+int n, k, ret = 1876543210;
 int a[50][2];
 
 int main() {
@@ -20,7 +20,7 @@ int main() {
 
 		for (int x = 0; x < n; x++) {
 
-			int max = -987654321;
+			int max = 0;
 
 			for (int h = 0; h < n; h++) {
 				if (h == x)
@@ -43,7 +43,7 @@ int main() {
 
 			for (int y = x + 1; y < n; y++) {
 
-				int max = -987654321;
+				int max = 0;
 
 				for (int h = 0; h < n; h++) {
 					if (h == x || h == y)
@@ -76,7 +76,7 @@ int main() {
 
 				for (int z = y + 1; z < n; z++) {
 
-					int max = -987654321;
+					int max = 0;
 
 					for (int h = 0; h < n; h++) {
 						if (h == x || h == y || h == z)
