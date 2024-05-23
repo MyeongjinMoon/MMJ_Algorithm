@@ -1,29 +1,29 @@
 #include <iostream>
-#include <istream>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
 
+int a[9];
+int ret;
+
 int main() {
-    vector<int> a;
-    for(int i = 0;i<9;i++){
-        int b;
-        cin >> b;
-        a.push_back(b);
-    }
-    sort(a.begin(),a.end());
-    do{
-        int sum = 0;
-        for(int i=0;i<7;i++){
-            sum+= a[i];
-        }
-        if(sum == 100)
-            break;
-    }while(next_permutation(a.begin(), a.end()));
-    for(int i=0;i<7;i++){
-            cout << a[i] << '\n';
-    }
-    
-    return 0;  
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	for (int i = 0; i < 9; i++) {
+		cin >> a[i];
+	}
+	sort(a, a + 3);
+	do {
+		int sum = 0;
+		for (int i = 0; i < 7; i++) {
+			sum += a[i];
+		}
+		if (sum == 100)
+			break;
+	} while (next_permutation(a, a + 9));
+	sort(a, a + 7);
+	for (int i = 0; i < 7; i++) {
+		cout << a[i] << ' ';
+	}
 }
